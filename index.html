@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitácora de Hábitos | Minimalista</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Bitácora de Vida</h1>
+            <p class="subtitle">Seguimiento de hábitos y consciencia</p>
+        </header>
+
+        <section class="tracker-section">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Registro de Hábitos</h2>
+                    <div class="legend">
+                        <span><span class="dot done"></span> Completado</span>
+                        <span><span class="dot pending"></span> Pendiente</span>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table id="habitTable">
+                        <thead>
+                            <tr id="dateHeader">
+                                <th class="sticky-col">Hábito</th>
+                                <!-- Dates will be injected here -->
+                            </tr>
+                        </thead>
+                        <tbody id="habitBody">
+                            <!-- Habits and rows will be injected here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section class="entries-section">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Escritos de Diario</h2>
+                </div>
+                <div class="entries-grid" id="entriesGrid">
+                    <!-- Empty entry cards will be injected here -->
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Bitácora Personal. Transforma tu mente, transforma tu realidad.</p>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
