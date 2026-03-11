@@ -3,8 +3,8 @@
     --card-bg: #16161a;
     --text-primary: #f1f5f9;
     --text-secondary: #94a3b8;
-    --accent: #8b5cf6;
-    --accent-light: rgba(139, 92, 246, 0.1);
+    --accent: #ffffff;
+    --accent-light: rgba(255, 255, 255, 0.08);
     --border: #2d2d35;
     --success: #10b981;
     --success-bg: rgba(16, 185, 129, 0.1);
@@ -57,6 +57,7 @@ h1 {
     margin-bottom: 0.5rem;
     background: linear-gradient(to right, #fff, #94a3b8);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -175,9 +176,9 @@ td.habit-cell:hover {
 }
 
 .check-box.checked {
-    background: var(--success);
-    border-color: var(--success);
-    color: white;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #ffffff;
+    color: #ffffff;
 }
 
 /* Entries Grid */
@@ -214,8 +215,8 @@ td.habit-cell:hover {
 }
 
 .entry-card:hover {
-    background: rgba(139, 92, 246, 0.05);
-    border-color: var(--accent);
+    background: rgba(255, 255, 255, 0.05);
+    border-color: #ffffff;
 }
 
 .entry-date {
@@ -235,7 +236,7 @@ td.habit-cell:hover {
 .entry-card:hover {
     border-color: var(--accent);
     background: var(--accent-light);
-    color: var(--accent);
+    color: var(--text-primary);
 }
 
 .entry-date {

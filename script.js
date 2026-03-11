@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
         entryCard.innerHTML = `
             <div class="entry-date" style="font-size: 0.9rem; font-weight: 500;">${dateStr}</div>
             <div style="font-size: 0.8rem; color: var(--text-secondary);">Sin entrada guardada...</div>
-            <div style="font-size: 0.7rem; color: var(--accent); font-weight: 600; cursor: pointer;">EDITAR</div>
+            <div style="font-size: 0.65rem; color: #fff; border: 1px solid #2d2d35; padding: 4px 10px; border-radius: 4px; font-weight: 500; cursor: pointer;">EDITAR</div>
         `;
         entriesGrid.appendChild(entryCard);
     });
