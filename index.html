@@ -16,29 +16,27 @@
 <body>
     <div class="container">
         <header>
-            <h1>Bitácora de Vida</h1>
-            <p class="subtitle">Seguimiento de hábitos y consciencia</p>
+            <h1>Bitácora Mentes 2.0</h1>
+            <p class="subtitle">Sesión #1: 10 de Febrero • Transformando el Estado Mental</p>
         </header>
 
         <section class="tracker-section">
             <div class="card">
                 <div class="card-header">
-                    <h2>Registro de Hábitos</h2>
+                    <h2>Seguimiento de Hábitos</h2>
                     <div class="legend">
                         <span><span class="dot done"></span> Completado</span>
-                        <span><span class="dot pending"></span> Pendiente</span>
+                        <span><span class="dot pending"></span> Bloqueado</span>
                     </div>
                 </div>
                 <div class="table-container">
                     <table id="habitTable">
                         <thead>
                             <tr id="dateHeader">
-                                <th class="sticky-col">Hábito</th>
-                                <!-- Dates will be injected here -->
+                                <th class="sticky-col">Métrica / Hábito</th>
                             </tr>
                         </thead>
                         <tbody id="habitBody">
-                            <!-- Habits and rows will be injected here -->
                         </tbody>
                     </table>
                 </div>
@@ -47,11 +45,11 @@
 
         <section class="entries-section">
             <div class="card">
-                <div class="card-header">
+                <div class="entries-header">
                     <h2>Escritos de Diario</h2>
+                    <span class="arrow" style="transition: transform 0.3s; color: var(--text-secondary);">▼</span>
                 </div>
                 <div class="entries-grid" id="entriesGrid">
-                    <!-- Empty entry cards will be injected here -->
                 </div>
             </div>
         </section>

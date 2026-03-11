@@ -3,51 +3,66 @@ document.addEventListener('DOMContentLoaded', () => {
     const dateHeader = document.getElementById('dateHeader');
     const entriesGrid = document.getElementById('entriesGrid');
 
-    // Configuration: Today is March 10, 2026. We show 4 weeks (28 days).
-    const today = new Date(2026, 2, 10);
-    const daysToShow = 28;
+    // Configuration: Session #1 was Feb 10, 2026.
+    const session1Date = new Date(2026, 1, 10); // Feb 10 (Months are 0-indexed)
+    const today = new Date(2026, 2, 11); // Current time March 11
+
+    // Calculate total days from Session 1 to Today
+    const timeDiff = today.getTime() - session1Date.getTime();
+    const daysSinceStart = Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1;
+    const daysToShow = Math.max(daysSinceStart, 28); // Show at least 4 weeks
 
     const habitsList = [
-        { id: 1, name: 'Encuerparme', weeks: [1, 2, 3, 4] },
-        { id: 2, name: 'Actuar en los primeros 2 segundos', weeks: [1, 2, 3, 4] },
-        { id: 3, name: 'El Narrador', weeks: [1, 2, 3, 4] },
-        { id: 4, name: 'Mudras', weeks: [1, 2, 3, 4] },
-        { id: 5, name: 'Hacerlo fácil', weeks: [2, 3, 4] },
-        { id: 6, name: 'Entrar en modo cacería', weeks: [2, 3, 4] },
-        { id: 7, name: 'Entegárselo a Dios / mi subconsciente', weeks: [2, 3, 4] },
-        { id: 8, name: 'Pasar energía de acción a mi yo soñador', weeks: [2, 3, 4] },
-        { id: 9, name: 'Delegar a mi yo futuro', weeks: [2, 3, 4] }
+        // Session 2 enabled (Week 2+)
+        { id: 1, name: 'El Narrador', session: 2 },
+        { id: 2, name: 'Delegar a mi yo futuro', session: 2 },
+        { id: 3, name: 'Actuar en los primeros 2 segundos', session: 2 },
+        { id: 4, name: 'Encuerparme', session: 2 },
+        { id: 5, name: 'Mudras', session: 2 },
+        { id: 6, name: 'Hacerlo fácil', session: 2 },
+        { id: 7, name: 'Entegárselo a Dios / mi subconsciente', session: 2 },
+
+        // Session 3 enabled (Week 3+)
+        { id: 8, name: 'Entrar en modo cacería', session: 3 },
+        { id: 9, name: 'Simular una pelea con tensión máxima', session: 3 },
+        { id: 10, name: 'Identificar mis emoveres y accionarlos', session: 3 },
+
+        // Session 4 enabled (Week 4+)
+        { id: 11, name: 'Obmocionarme', session: 4 }
     ];
 
-    // Generate Dates
+    // Generate Dates starting from Session 1
     const dates = [];
-    for (let i = daysToShow - 1; i >= 0; i--) {
-        const d = new Date(today);
-        d.setDate(today.getDate() - i);
+    for (let i = 0; i < daysToShow; i++) {
+        const d = new Date(session1Date);
+        d.setDate(session1Date.getDate() + i);
         dates.push(d);
     }
 
     // Initialize or get data from localStorage
-    let habitData = JSON.parse(localStorage.getItem('habit_tracker_data')) || {};
+    let habitData = JSON.parse(localStorage.getItem('habit_tracker_data_v2')) || {};
 
     // Simulation logic
     const resetSimulation = () => {
         habitData = {};
         dates.forEach((date, dateIdx) => {
             const dateStr = date.toISOString().split('T')[0];
-            // Week logic: 0-6 (W1), 7-13 (W2), 14-20 (W3), 21-27 (W4)
             const weekNum = Math.floor(dateIdx / 7) + 1;
 
-            habitsList.forEach(habit => {
-                if (habit.weeks.includes(weekNum)) {
-                    // Simulation: 70% chance of completion
-                    const isDone = Math.random() > 0.3;
-                    const key = `${dateStr}-${habit.id}`;
-                    habitData[key] = isDone;
-                }
-            });
+            // User did not attend week 1, so no habits marked then.
+            if (weekNum > 1) {
+                habitsList.forEach(habit => {
+                    if (weekNum >= habit.session) {
+                        // Simulation: higher success rate as weeks progress
+                        const probability = weekNum === 2 ? 0.6 : (weekNum === 3 ? 0.75 : 0.85);
+                        const isDone = Math.random() < probability;
+                        const key = `${dateStr}-${habit.id}`;
+                        habitData[key] = isDone;
+                    }
+                });
+            }
         });
-        localStorage.setItem('habit_tracker_data', JSON.stringify(habitData));
+        localStorage.setItem('habit_tracker_data_v2', JSON.stringify(habitData));
         location.reload();
     };
 
@@ -61,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const day = date.getDate();
         const month = date.toLocaleString('es-ES', { month: 'short' });
         const weekday = date.toLocaleString('es-ES', { weekday: 'short' });
-        th.innerHTML = `<div>${weekday}</div><div style="font-size: 1.1rem; color: #1e293b; margin: 4px 0;">${day}</div><div style="font-size: 0.7rem; opacity: 0.7;">${month}</div>`;
+        th.innerHTML = `<div>${weekday}</div><div style="font-size: 1rem; color: #fff; margin: 4px 0;">${day}</div><div style="font-size: 0.65rem; opacity: 0.5;">${month}</div>`;
         dateHeader.appendChild(th);
     });
 
@@ -72,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Name Column
         const tdName = document.createElement('td');
         tdName.className = 'sticky-col';
-        tdName.innerHTML = `<div style="font-weight: 500;">${habit.name}</div>`;
+        tdName.innerHTML = `<div style="font-size: 0.9rem;">${habit.name}</div>`;
         tr.appendChild(tdName);
 
         // Date Columns
@@ -83,21 +98,24 @@ document.addEventListener('DOMContentLoaded', () => {
             td.className = 'habit-cell';
 
             const key = `${dateStr}-${habit.id}`;
-            const isEnabled = habit.weeks.includes(weekNum);
+            const isEnabled = weekNum >= habit.session;
 
             if (isEnabled) {
                 const box = document.createElement('div');
                 box.className = `check-box ${habitData[key] ? 'checked' : ''}`;
+                box.innerHTML = habitData[key] ? '✕' : '';
+                box.style.fontSize = '10px';
 
                 td.addEventListener('click', () => {
                     habitData[key] = !habitData[key];
                     box.classList.toggle('checked');
-                    localStorage.setItem('habit_tracker_data', JSON.stringify(habitData));
+                    box.innerHTML = habitData[key] ? '✕' : '';
+                    localStorage.setItem('habit_tracker_data_v2', JSON.stringify(habitData));
                 });
 
                 td.appendChild(box);
             } else {
-                td.innerHTML = '<span style="color: #e2e8f0; font-size: 1.5rem;">·</span>';
+                td.innerHTML = '<span style="color: #2d2d35; font-size: 1.2rem;">·</span>';
                 td.style.cursor = 'default';
             }
 
@@ -107,17 +125,24 @@ document.addEventListener('DOMContentLoaded', () => {
         habitBody.appendChild(tr);
     });
 
-    // Render Diary Entries (Empty)
-    // For 4 weeks, let's show placeholders for the last 14 days to keep it clean
+    // Render Diary Entries (Empty & Expandable)
     dates.slice(-14).reverse().forEach(date => {
         const dateStr = date.toLocaleDateString('es-ES', { day: 'numeric', month: 'long' });
         const entryCard = document.createElement('div');
         entryCard.className = 'entry-card';
         entryCard.innerHTML = `
-            <div class="entry-date">${dateStr}</div>
-            <div class="entry-placeholder">Sin entrada guardada...</div>
-            <div style="margin-top: 1rem; font-size: 0.7rem; opacity: 0.5; font-weight: 500;">CLIC PARA EDITAR</div>
+            <div class="entry-date" style="font-size: 0.9rem; font-weight: 500;">${dateStr}</div>
+            <div style="font-size: 0.8rem; color: var(--text-secondary);">Sin entrada guardada...</div>
+            <div style="font-size: 0.7rem; color: var(--accent); font-weight: 600; cursor: pointer;">EDITAR</div>
         `;
         entriesGrid.appendChild(entryCard);
+    });
+
+    // Expansion Logic
+    const entriesHeader = document.querySelector('.entries-header');
+    entriesHeader.addEventListener('click', () => {
+        entriesGrid.classList.toggle('expanded');
+        const arrow = entriesHeader.querySelector('.arrow');
+        if (arrow) arrow.style.transform = entriesGrid.classList.contains('expanded') ? 'rotate(180deg)' : 'rotate(0deg)';
     });
 });
