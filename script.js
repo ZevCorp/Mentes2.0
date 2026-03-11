@@ -120,20 +120,4 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
         entriesGrid.appendChild(entryCard);
     });
-
-    // Add a simple clear button in the footer or header if you want
-    const footer = document.querySelector('footer');
-    const btn = document.createElement('button');
-    btn.textContent = 'Reiniciar Simulación';
-    btn.style.marginTop = '20px';
-    btn.style.padding = '8px 16px';
-    btn.style.borderRadius = '20px';
-    btn.style.border = '1px solid #e2e8f0';
-    btn.style.background = 'white';
-    btn.style.cursor = 'pointer';
-    btn.style.fontSize = '0.75rem';
-    btn.style.color = '#64748b';
-    btn.addEventListener('click', resetSimulation);
-    footer.appendChild(document.createElement('br'));
-    footer.appendChild(btn);
 });
