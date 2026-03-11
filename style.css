@@ -84,8 +84,8 @@ h1 {
 
 h2 {
     font-family: 'Outfit', sans-serif;
-    font-size: 1.5rem;
-    color: #334155;
+    font-size: 1.6rem;
+    color: #ffffff;
 }
 
 .legend {
@@ -131,13 +131,13 @@ td {
 }
 
 th {
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(255, 255, 255, 0.05);
     font-weight: 500;
-    color: var(--text-secondary);
+    color: #f1f5f9;
     font-size: 0.7rem;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    border-bottom: 1px solid var(--border);
+    letter-spacing: 0.12em;
+    border-bottom: 2px solid var(--border);
 }
 
 .sticky-col {
@@ -203,14 +203,33 @@ td.habit-cell:hover {
 }
 
 .entry-card {
-    background: rgba(255, 255, 255, 0.02);
+    background: rgba(255, 255, 255, 0.03);
     border: 1px solid var(--border);
     border-radius: 0.75rem;
-    padding: 1.25rem;
+    padding: 1.5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     transition: all 0.3s;
+}
+
+.entry-card:hover {
+    background: rgba(139, 92, 246, 0.05);
+    border-color: var(--accent);
+}
+
+.entry-date {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.entry-placeholder {
+    color: #94a3b8 !important;
+}
+
+.arrow {
+    font-size: 1.2rem;
+    color: #ffffff !important;
 }
 
 .entry-card:hover {
