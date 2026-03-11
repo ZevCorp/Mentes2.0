@@ -5,9 +5,9 @@
     --text-secondary: #94a3b8;
     --accent: #ffffff;
     --accent-light: rgba(255, 255, 255, 0.08);
-    --border: #2d2d35;
     --success: #10b981;
-    --success-bg: rgba(16, 185, 129, 0.1);
+    --success-glow: rgba(16, 185, 129, 0.4);
+    --border: #2d2d35;
     --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
 }
 
@@ -176,9 +176,11 @@ td.habit-cell:hover {
 }
 
 .check-box.checked {
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--success);
     border-color: #ffffff;
     color: #ffffff;
+    box-shadow: 0 0 10px var(--success-glow);
+    transform: scale(1.05);
 }
 
 /* Entries Grid */
